@@ -1,1 +1,1 @@
-# a2a-adk
+# a2a-protocol using Google ADK agents
