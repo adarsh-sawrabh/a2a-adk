@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "A2A Server Agent (app_run)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/app_run.py",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}

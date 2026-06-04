@@ -1,0 +1,9 @@
+fastapi[standard]>=0.115.13
+google-adk>=1.20.0
+a2a-sdk[http-server]>=0.3.25,<1.0.0
+litellm>=1.73.0
+pydantic>=2.11.7
+python-dotenv>=1.1.0
+respx>=0.23.1
+pymongo>=4.0.0
+tenacity>=8.2.0

@@ -1,0 +1,95 @@
+/**
+    Debug configuration for AMA client.
+        - "Streamlit: debug app" launches `streamlit run streamlit_app.py` under the debugger, prompts I pick the target env [local].
+        - The choice is expoerted as $A2A_DEFAULT_ENDPOINT, which the src/ama_client/config.py reads at import time.
+        - "Streamlit: debug app (default env)" skips the prompt and just uses whatever $A2A_DEFAULT_ENDPOINT is set to in the terminal environment or .env file.
+        - "Python: debug CLI (run_cli)" runs the bare REPL in client.py & also prompts for the target env.
+        - "Python: debug current file" is a generic fallback for debugging any adhoc scripts.
+*/
+{
+    "version": "0.2.0",
+    "inputs": [
+        {
+            "id": "endpoint",
+            "type": "pickString",
+            "description": "Which A2A endpoint should the client connect to?",
+            "options": ["local"],
+            "default": "local"
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Streamlit: debug app",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${workspaceFolder}/streamlit_app.py",
+                "--server.port=8501",
+                "--server.headless=true",
+                "--server.runOnSave=false",
+                "--server.fileWatcherType=none"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+                "PYTHONBUFFERED": "1",
+                "A2A_DEFAULT_ENDPOINT": "${input:endpoint}"
+            },
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Streamlit: debug app (default env)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${workspaceFolder}/streamlit_app.py",
+                "--server.port=8501",
+                "--server.headless=true",
+                "--server.runOnSave=false",
+                "--server.fileWatcherType=none"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+                "PYTHONBUFFERED": "1"
+            },
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: debug CLI (run_cli)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "ama_client.client",
+            "args": ["--url", "${input:endpoint}"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+                "PYTHONBUFFERED": "1",
+            },
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: debug current file",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+            },
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "name": "A2AServerAgent",
+    "description": "An agent that serves as the a2a root agent server, handling requests from a2a client and user interactions & delegating any tasks to sub-agents.",
+    "version": "0.1.0",
+    "protocolVersion": "0.3.0",
+    "preferredTransport": "JSONRPC",
+    "url":"http://localhost:8001/a2a/a2a_agent_server",
+    "capabilities": {
+        "streaming": false,
+        "pushNotifications": false
+    },
+    "defaultInputModes":[
+        "text/plain"
+    ],
+    "defaultOutputModes":[
+        "text/plain"
+    ],
+    "auth":{
+        "type": "none"
+    },
+    "supportsAuthenticatedExtendedCard": false,
+    "skills":[
+        {
+            "id": "A2A_Server_Agent",
+            "name": "kritiyam_ai_agent",
+            "description": "An agent that serves as the a2a root agent server, handling requests from a2a client and user interactions & delegating any tasks to sub-agents.",
+            "tags": ["llm"]
+        },
+        {
+            "id": "search_agent",
+            "name": "web_search_agent",
+            "description": "An agent that performs web searches to provide latest informations on the user's query.",
+            "tags": ["sub_agent:search_agent", "llm"]
+        }
+    ]
+}
